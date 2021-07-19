@@ -1,6 +1,7 @@
 # importing libraries & framework
 from tkinter import Tk, Frame, Button, Label, Entry, messagebox
-from time import sleep, strftime, time
+from time import sleep, strftime, struct_time
+from tkinter.constants import END
 
 # creating gui object
 clock = Tk()
@@ -14,14 +15,6 @@ def updateTime():
     lbl_date.config(text = strftime("%D"))
     lbl_day.config(text = strftime("%A"))
     frame_home.after(1000, updateTime)
-
-# function to load stopwatch frame
-def stopWatchFrame():
-    pass
-
-# function to load alarm frame
-def alarmFrame():
-    pass
 
 # function to load timer frame
 def timerFrame():
@@ -49,6 +42,13 @@ def timerFrame():
                     timer_time -= 1
                     sleep(1)
                 messagebox.showinfo("Time Up", "Time Up")
+                edt_minute.delete(0, END)
+                edt_minute.insert(0, "00")
+                edt_second.delete(0, END)
+                edt_second.insert(0, "00")
+
+    # timer frame widgets
+    clock.title("Timer")
 
     frame_timer = Frame(clock, bg = "#111")
     frame_timer.place(relwidth = 1, relheight = 1, x = 0, y = 0)
@@ -61,12 +61,11 @@ def timerFrame():
     edt_second.insert(0, "00")
     edt_second.place(relwidth = 0.2, relheight = 0.3, relx = 0.55, rely = 0.1)
 
-    btn_start_timer = Button(frame_timer, text = "Start", bg = "#070", fg = "#CCC", border = 0, font = ("Arial", 17), command = startTimer)
-    btn_start_timer.place(relwidth = 0.3, relheight = 0.125, relx = 0.35, rely = 0.5)
+    btn_start_stopwatch = Button(frame_timer, text = "Start", bg = "#3C3", fg = "#CCC", border = 0, font = ("Arial", 17), command = startTimer)
+    btn_start_stopwatch.place(relwidth = 0.3, relheight = 0.125, relx = 0.35, rely = 0.5)
 
-    btn_home = Button(frame_timer, text = "Home", bg = "#03C", fg = "#CCC", border = 0, font = ("Arial", 17), command = lambda: frame_timer.destroy())
+    btn_home = Button(frame_timer, text = "Home", bg = "#37F", fg = "#CCC", border = 0, font = ("Arial", 17), command = lambda: frame_timer.destroy())
     btn_home.place(relwidth = 0.3, relheight = 0.125, relx = 0.35, rely = 0.7)
-    clock.title("Timer")
 
 
 # home frame widgets
@@ -82,14 +81,14 @@ lbl_date.place(relwidth = 0.3, relheight = 0.1, relx = 0.35, rely = 0.42)
 lbl_day = Label(frame_home, bg = "#111", fg = "#09F", font = ("Agency FB", 18))
 lbl_day.place(relwidth = 0.25, relheight = 0.1, relx = 0.375, rely = 0.5)
 
-btn_stopwatch = Button(frame_home, text = "Stopwatch", bg = "#C33", fg = "#111", border = 0, font = ("Arial", 16), command = stopWatchFrame)
-btn_stopwatch.place(relwidth = 0.2, relheight = 0.1, relx = 0.1, rely = 0.75)
+# btn_stopwatch = Button(frame_home, text = "Stopwatch", bg = "#C33", fg = "#111", border = 0, font = ("Arial", 16), command = stopWatchFrame)
+# btn_stopwatch.place(relwidth = 0.2, relheight = 0.1, relx = 0.1, rely = 0.75)
 
-btn_alarm = Button(frame_home, text = "Alarm", bg = "#33C", fg = "#111", border = 0, font = ("Arial", 17), command = alarmFrame)
-btn_alarm.place(relwidth = 0.2, relheight = 0.1, relx = 0.4, rely = 0.75)
+# btn_alarm = Button(frame_home, text = "Alarm", bg = "#33C", fg = "#111", border = 0, font = ("Arial", 17), command = alarmFrame)
+# btn_alarm.place(relwidth = 0.2, relheight = 0.1, relx = 0.4, rely = 0.75)
 
-btn_timer = Button(frame_home, text = "Timer", bg = "#3C3", fg = "#111", border = 0, font = ("Arial", 17), command = timerFrame)
-btn_timer.place(relwidth = 0.2, relheight = 0.1, relx = 0.7, rely = 0.75)
+btn_timer = Button(frame_home, text = "Timer", bg = "#37F", fg = "#111", border = 0, font = ("Arial", 17), command = timerFrame)
+btn_timer.place(relwidth = 0.2, relheight = 0.1, relx = 0.4, rely = 0.75)
 
 # looping gui & updating time
 updateTime()
